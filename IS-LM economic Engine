@@ -1,0 +1,38 @@
+# is_lm_solver.py
+
+def is_lm_equilibrium(C, I, G, T, Ms, P, h, k, b):
+    """
+    Solve the IS-LM equilibrium for given parameters.
+
+    IS curve: Y = C + I + G
+    LM curve: Ms / P = kY - hi
+
+    Parameters:
+        C: Autonomous consumption
+        I: Investment (autonomous)
+        G: Government spending
+        T: Taxes
+        Ms: Nominal money supply
+        P: Price level
+        h: Interest sensitivity of money demand
+        k: Income sensitivity of money demand
+        b: Sensitivity of investment to interest
+
+    Returns:
+        Equilibrium income (Y) and interest rate (i)
+    """
+
+    # Derived from solving the IS and LM system
+    A = k * b + 1
+    B = C + I + G - b * (Ms / P)
+    Y_eq = B / A
+    i_eq = (k * Y_eq - Ms / P) / h
+
+    return round(Y_eq, 2), round(i_eq, 4)
+
+
+# Example usage
+if __name__ == "__main__":
+    Y, i = is_lm_equilibrium(C=100, I=50, G=200, T=50, Ms=500, P=2, h=0.5, k=0.6, b=0.4)
+    print(f"Equilibrium Output (Y): {Y}")
+    print(f"Equilibrium Interest Rate (i): {i}")
